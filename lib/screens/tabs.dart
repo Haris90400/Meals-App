@@ -4,7 +4,6 @@ import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 import 'package:meals_app/screens/filters.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_app/providers/meals_provider.dart';
 import 'package:meals_app/providers/favoirites_provider.dart';
 import 'package:meals_app/providers/filters_provider.dart';
 
@@ -34,7 +33,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void selectScreen(String identifier) async {
     Navigator.pop(context);
     if (identifier == 'filters') {
-      final result = await Navigator.push<Map<Filter, bool>>(
+      await Navigator.push<Map<Filter, bool>>(
         context,
         MaterialPageRoute(
           builder: (ctx) => FiltersScreen(),
@@ -45,8 +44,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final meals = ref.watch(mealsProvider);
-    final activeFilters = ref.watch(filtersNotifierProvider);
     final availableMeals = ref.watch(filteredMealsProvider);
     Widget activePage = CategoriesScreen(
       availableMeals: availableMeals,
